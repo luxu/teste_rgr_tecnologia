@@ -1,7 +1,0 @@
-bs4==0.0.1
-flake8==3.8.4
-Jinja2==2.11.2
-ipython==7.19.0
-pytest==6.2.1
-Scrapy==2.4.1
-spidermon==1.14.0
