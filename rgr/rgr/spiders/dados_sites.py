@@ -16,11 +16,10 @@ class DadosSpider(Spider):
     # for url in urls.split('\n'):
     #     start_urls.append(url)
 
-
     def parse(self, response):
         html_to_texto = response.text
         search = ['img', 'src', 'logo']
-        pattern = '(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})'
+        pattern = r"(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})"
         src = ''
         lista_telefone = []
         for linha in html_to_texto.split('\n'):
@@ -35,9 +34,9 @@ class DadosSpider(Spider):
                         src = tag['src']
                         if not src.startswith('http'):
                             src = ''.join((response.url, src))
-                    except KeyError as err:
+                    except KeyError:
                         response.url
-                except AttributeError as err:
+                except AttributeError:
                     response.url
             if '0800 ' in linha:
                 telefone = re.sub('[^0-9]', ' ', linha)
