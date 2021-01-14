@@ -14,5 +14,5 @@ virtualenv .venv
 ````
 * Execute o comando para pegar os dados e salvar no arquivo JSON
 ````
-  scrapy crawl dados -o result.json -t json
+  scrapy crawl dados -a filename=<nome-do-arquivo> -o result.json -t json   
 ````
