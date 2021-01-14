@@ -3,18 +3,20 @@ from scrapy import Spider
 import re
 from bs4 import BeautifulSoup as bs
 from rgr.items import RgrItem
-
+import os
 
 class DadosSpider(Spider):
     name = 'dados'
-    # filename = '../../websites.txt'
-    start_urls = [
-        'https://www.imobiliariasistema.com.br/'
-    ]
-    # with open(filename, encoding='utf-8') as _f:
-    #     urls = _f.read()
-    # for url in urls.split('\n'):
-    #     start_urls.append(url)
+
+
+    def __init__(self, filename=None):
+        if filename:
+            with open(filename) as f:
+                self.start_urls = [url.strip() for url in f.readlines()]
+        else:
+            self.start_urls = [
+                'https://www.caixa.gov.br/atendimento/Paginas/default.aspx'
+            ]
 
     def parse(self, response):
         html_to_texto = response.text
@@ -24,7 +26,6 @@ class DadosSpider(Spider):
         lista_telefone = []
         for linha in html_to_texto.split('\n'):
             res = [ele for ele in search if (ele in linha)]
-            matchs = re.search(pattern, linha)
             if len(res) == len(search):
                 soup = bs(linha, 'html.parser')
                 img_ = soup.img
@@ -38,15 +39,23 @@ class DadosSpider(Spider):
                         response.url
                 except AttributeError:
                     response.url
-            if '0800 ' in linha:
+            pattern_0800 = ''
+            if '0800- ' in linha:
                 telefone = re.sub('[^0-9]', ' ', linha)
                 telefone = telefone.strip()
                 lista_telefone.append(telefone)
-            if matchs:
+            else:
+                matchs = re.search(pattern, linha)
+                try:
+                    phone = matchs.group()
+                    lista_telefone.append(phone)
+                except AttributeError:
+                    pass
+            # if len(phone) > 0:
                 # if 'telep' in linha or 'telef' in linha:
-                telefone = re.sub('[^0-9]', ' ', linha)
-                telefone = telefone.strip()
-                lista_telefone.append(telefone)
+                # telefone = re.sub('[^0-9]', ' ', linha)
+                # telefone = telefone.strip()
+                # lista_telefone.append(telefone)
         yield RgrItem(
             website=response.url,
             telefone=lista_telefone,

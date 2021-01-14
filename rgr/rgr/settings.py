@@ -61,14 +61,14 @@ EXTENSIONS = {
     "spidermon.contrib.scrapy.extensions.Spidermon": 500
 }
 SPIDERMON_ENABLED = True
-SPIDERMON_VALIDATION_SCHEMAS = [
-    pkg_resources.resource_filename("rgr", "resources/rgr_schema.json")
-]
-
-SPIDERMON_VALIDATION_ADD_ERRORS_TO_ITEMS = True
-SPIDERMON_VALIDATION_DROP_ITEMS_WITH_ERRORS = True
-SPIDERMON_SPIDER_CLOSE_MONITORS = ("rgr.monitors.SpiderCloseMonitorSuite",)
-SPIDERMON_MAX_ERRORS = 0
+# SPIDERMON_VALIDATION_SCHEMAS = [
+#     pkg_resources.resource_filename("rgr", "resources/rgr_schema.json")
+# ]
+#
+# SPIDERMON_VALIDATION_ADD_ERRORS_TO_ITEMS = True
+# SPIDERMON_VALIDATION_DROP_ITEMS_WITH_ERRORS = True
+# SPIDERMON_SPIDER_CLOSE_MONITORS = ("rgr.monitors.SpiderCloseMonitorSuite",)
+# SPIDERMON_MAX_ERRORS = 0
 
 SPIDERMON_TELEGRAM_FAKE = True
 SPIDERMON_TELEGRAM_SENDER_TOKEN = "<TELEGRAM_BOT_TOKEN>"
