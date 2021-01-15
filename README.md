@@ -8,11 +8,11 @@ pip3 install virtualenv
 ````
 virtualenv .venv
 ````
-* Execute o arquivo ``requirements.txt`` para instalar as libs para o projeto
+* Run the `` requirements.txt`` file to install the libs for the project
 ````
   pip install -r requirements.txt
 ````
-* Execute o comando para pegar os dados e salvar no arquivo JSON
+* Run the command to get the data and save it in the JSON file
 ````
   scrapy crawl dados -a filename=websites.txt -o result.json -t json   
 ````
