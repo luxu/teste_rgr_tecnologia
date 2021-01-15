@@ -3,11 +3,10 @@ from scrapy import Spider
 import re
 from bs4 import BeautifulSoup as bs
 from rgr.items import RgrItem
-import os
+
 
 class DadosSpider(Spider):
     name = 'dados'
-
 
     def __init__(self, filename=None):
         if filename:
@@ -15,13 +14,13 @@ class DadosSpider(Spider):
                 self.start_urls = [url.strip() for url in f.readlines()]
         else:
             self.start_urls = [
-                'https://www.caixa.gov.br/atendimento/Paginas/default.aspx'
+                'https://www.cialdnb.com/'
             ]
 
     def parse(self, response):
         html_to_texto = response.text
         search = ['img', 'src', 'logo']
-        pattern = r"(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})"
+        pattern = r'(\+[0-9]{1,2}\s)?(\(?\d{1,3}\)?\s)(\d{3,4})(-\d{2,4})?(-\d{2})?'
         src = ''
         lista_telefone = []
         for linha in html_to_texto.split('\n'):
@@ -39,23 +38,12 @@ class DadosSpider(Spider):
                         response.url
                 except AttributeError:
                     response.url
-            pattern_0800 = ''
-            if '0800- ' in linha:
-                telefone = re.sub('[^0-9]', ' ', linha)
-                telefone = telefone.strip()
-                lista_telefone.append(telefone)
-            else:
-                matchs = re.search(pattern, linha)
-                try:
-                    phone = matchs.group()
-                    lista_telefone.append(phone)
-                except AttributeError:
-                    pass
-            # if len(phone) > 0:
-                # if 'telep' in linha or 'telef' in linha:
-                # telefone = re.sub('[^0-9]', ' ', linha)
-                # telefone = telefone.strip()
-                # lista_telefone.append(telefone)
+            matchs = re.search(pattern, linha)
+            try:
+                phone = matchs.group()
+                lista_telefone.append(phone)
+            except AttributeError:
+                pass
         yield RgrItem(
             website=response.url,
             telefone=lista_telefone,

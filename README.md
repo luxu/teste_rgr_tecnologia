@@ -1,10 +1,10 @@
-# Teste na Rgr Tecnologia
+# Test 
 
-* Instalar o virtualenv
+* Install Lib virtualenv
 ````
 pip3 install virtualenv
 ````
-* Crie o ambiente virtual
+* Create the virtual environment
 ````
 virtualenv .venv
 ````
@@ -14,5 +14,5 @@ virtualenv .venv
 ````
 * Execute o comando para pegar os dados e salvar no arquivo JSON
 ````
-  scrapy crawl dados -a filename=<nome-do-arquivo> -o result.json -t json   
+  scrapy crawl dados -a filename=websites.txt -o result.json -t json   
 ````
