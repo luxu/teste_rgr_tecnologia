@@ -1,4 +1,3 @@
-import pkg_resources
 # Scrapy settings for rgr project
 #
 # For simplicity, this file contains only settings considered important or
