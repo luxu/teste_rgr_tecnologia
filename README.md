@@ -43,4 +43,6 @@ Generate Data
 docker run mycrawler
 ``
 
+Important! It generates the file called result.json inside the rgr folder. 
+
 ## That´s all Folks
