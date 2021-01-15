@@ -31,4 +31,16 @@ cd rgr
   scrapy crawl dados -a filename=websites.txt -o result.json -t json   
 ````
 
+## Docker
+
+Build image
+``
+docker build -t mycrawler .
+``
+
+Generate Data
+``
+docker run mycrawler
+``
+
 ## That´s all Folks
